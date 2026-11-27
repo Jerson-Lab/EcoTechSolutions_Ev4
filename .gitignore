@@ -1,15 +1,20 @@
 
-# Datos de usuarios
+# Datos privados
 usuarios.json
+ecotech.db
+*.db-journal
+*.db-wal
+*.db-shm
 
-# Archivos temporales de Python
+# Archivos temporales
 __pycache__/
 *.pyc
 
-# Entorno virtual
+# Entornos virtuales
 .venv/
+venv/
 
-# Variables y credenciales privadas
+# Credenciales
 .env
 .env.*
 
