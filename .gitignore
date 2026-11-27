@@ -1,0 +1,17 @@
+
+# Datos de usuarios
+usuarios.json
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Entorno virtual
+.venv/
+
+# Variables y credenciales privadas
+.env
+.env.*
+
+# Archivos de registro
+*.log
