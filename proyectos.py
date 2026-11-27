@@ -203,23 +203,7 @@ class RepositorioProyectos:
             ).fetchall()
 
         return [self._convertir(fila) for fila in filas]
-
-    def reactivar(self, proyecto_id):
-        with closing(conectar()) as conexion:
-            with conexion:
-                cursor = conexion.execute(
-                    """
-                    UPDATE proyectos
-                    SET activo = 1
-                    WHERE id = ? AND activo = 0
-                    """,
-                    (proyecto_id,)
-                )
-
-                cambiado = cursor.rowcount > 0
-
-        return cambiado
-
+    
     def reactivar(self, proyecto_id):
         with closing(conectar()) as conexion:
             with conexion:
