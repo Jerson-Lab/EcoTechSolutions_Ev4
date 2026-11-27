@@ -2,11 +2,14 @@ from seguridad import registrar_usuario, iniciar_sesion
 from clima import consultar_clima
 from monedas import consultar_tipo_cambio
 from menu_empleados import menu_empleados
+from menu_proyectos import menu_proyectos
+
 def mostrar_menu():
     print("\n=== ECOTECH SOLUTIONS ===")
     print("1. Registrar usuario")
     print("2. Iniciar sesión")
     print("3. Salir")
+
 
 def menu_privado(usuario):
     while True:
@@ -16,9 +19,10 @@ def menu_privado(usuario):
         print("\n1. Consultar clima")
         print("2. Consultar tipo de cambio")
         print("3. Gestión de empleados")
-        print("4. Cerrar Sesión")
+        print("4. Gestión de proyectos")
+        print("5. Cerrar sesión")
 
-        opcion = input("Seleccione una opción: ")
+        opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "1":
             consultar_clima()
@@ -30,11 +34,15 @@ def menu_privado(usuario):
             menu_empleados()
 
         elif opcion == "4":
+            menu_proyectos()
+
+        elif opcion == "5":
             print("Sesión cerrada correctamente.")
             break
-        
+
         else:
             print("Opción no válida.")
+
         
 def main():
     while True:
