@@ -6,6 +6,11 @@ from decimal import Decimal, InvalidOperation
 from base_datos import inicializar_base_datos
 from proyectos import Proyecto, RepositorioProyectos
 
+from servicios_proyectos import (
+    consultar_clima_proyecto,
+    convertir_presupuesto_proyecto
+)
+
 def pedir_campo(etiqueta, valor_actual=None):
     if valor_actual is None:
         texto = input(f"{etiqueta}: ").strip()
@@ -148,7 +153,9 @@ def menu_proyectos():
         print("3. Modificar proyecto")
         print("4. Desactivar proyecto")
         print("5. Reactivar proyecto")
-        print("6. Volver al menú privado")
+        print("6. Consultar clima de un proyecto")
+        print("7. Convertir presupuesto a CLP")
+        print("8. Volver al menú privado")
 
         opcion = input(
             "Seleccione una opción: "
@@ -232,9 +239,70 @@ def menu_proyectos():
                 else:
                     print("Proyecto no encontrado o ya activo.")
 
+
             elif opcion == "6":
+                print("\n=== CLIMA DEL PROYECTO ===")
+
+                mostrar_proyectos(repositorio.listar())
+                proyecto_id = pedir_id()
+
+                proyecto = repositorio.buscar_por_id(
+                    proyecto_id
+                )
+
+                if proyecto is None:
+                    print("Proyecto no encontrado.")
+                    continue
+
+                clima = consultar_clima_proyecto(proyecto)
+
+                print("\n=== RESULTADO CLIMÁTICO ===")
+                print("Proyecto:", clima["proyecto"])
+                print("Ciudad:", clima["ciudad"])
+                print(f"Temperatura: {clima['temperatura']} °C")
+                print(f"Humedad: {clima['humedad']} %")
+                print(f"Viento: {clima['viento']} km/h")
+                print("Estado del tiempo:", clima["estado"])
+                print("Fecha y hora:", clima["fecha"])
+
+            elif opcion == "7":
+                print("\n=== CONVERTIR PRESUPUESTO ===")
+
+                mostrar_proyectos(repositorio.listar())
+                proyecto_id = pedir_id()
+
+                proyecto = repositorio.buscar_por_id(
+                    proyecto_id
+                )
+
+                if proyecto is None:
+                    print("Proyecto no encontrado.")
+                    continue
+
+                resultado = convertir_presupuesto_proyecto(
+                    proyecto
+                )
+
+                print("\n=== RESULTADO DE CONVERSIÓN ===")
+                print("Proyecto:", resultado["proyecto"])
+                print(
+                    f"Presupuesto: {resultado['monto']:.2f} "
+                    f"{resultado['moneda']}"
+                )
+                print(
+                    f"Tipo de cambio: {resultado['tasa']} CLP"
+                )
+                print(
+                    f"Equivalente estimado: "
+                    f"{resultado['equivalente_clp']:.0f} CLP"
+                )
+                print("Actualización:", resultado["fecha"])
+                print("Valor referencial, no bancario.")
+
+            elif opcion == "8":
                 print("Regresando al menú privado...")
                 break
+
 
             else:
                 print("Opción no válida.")
@@ -246,4 +314,9 @@ def menu_proyectos():
             print(
                 "Problema de base de datos. "
                 "No fue posible completar la operación."
+            )
+        except OSError:
+            print(
+                "Error de conexión con el servicio externo. "
+                "Intente nuevamente más tarde."
             )
