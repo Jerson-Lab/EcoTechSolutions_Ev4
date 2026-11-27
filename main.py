@@ -1,7 +1,7 @@
 from seguridad import registrar_usuario, iniciar_sesion
 from clima import consultar_clima
 from monedas import consultar_tipo_cambio
-
+from menu_empleados import menu_empleados
 def mostrar_menu():
     print("\n=== ECOTECH SOLUTIONS ===")
     print("1. Registrar usuario")
@@ -14,8 +14,9 @@ def menu_privado(usuario):
         print(f"Usuario conectado: {usuario}")
 
         print("\n1. Consultar clima")
-        print("2.Consultar tipo de cambio")
-        print("3. Cerrar Sesión")
+        print("2. Consultar tipo de cambio")
+        print("3. Gestión de empleados")
+        print("4. Cerrar Sesión")
 
         opcion = input("Seleccione una opción: ")
 
@@ -26,6 +27,9 @@ def menu_privado(usuario):
             consultar_tipo_cambio()
 
         elif opcion == "3":
+            menu_empleados()
+
+        elif opcion == "4":
             print("Sesión cerrada correctamente.")
             break
         
