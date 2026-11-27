@@ -3,6 +3,7 @@ from clima import consultar_clima
 from monedas import consultar_tipo_cambio
 from menu_empleados import menu_empleados
 from menu_proyectos import menu_proyectos
+from menu_asignaciones import menu_asignaciones
 
 def mostrar_menu():
     print("\n=== ECOTECH SOLUTIONS ===")
@@ -20,7 +21,8 @@ def menu_privado(usuario):
         print("2. Consultar tipo de cambio")
         print("3. Gestión de empleados")
         print("4. Gestión de proyectos")
-        print("5. Cerrar sesión")
+        print("5. Asignaciones de empleados")
+        print("6. Cerrar sesión")
 
         opcion = input("Seleccione una opción: ").strip()
 
@@ -37,8 +39,12 @@ def menu_privado(usuario):
             menu_proyectos()
 
         elif opcion == "5":
+            menu_asignaciones()
+
+        elif opcion == "6":
             print("Sesión cerrada correctamente.")
             break
+
 
         else:
             print("Opción no válida.")
